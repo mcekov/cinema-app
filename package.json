@@ -1,15 +1,14 @@
 {
-  "name": "cinema-app-react",
+  "name": "firebase-auth",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "bootstrap": "^4.3.1",
-    "react": "^16.8.2",
-    "react-bootstrap": "^1.0.0-beta.5",
-    "react-dom": "^16.8.2",
+    "firebase": "^5.8.5",
+    "react": "^16.8.3",
+    "react-dom": "^16.8.3",
     "react-router-dom": "^4.3.1",
     "react-scripts": "2.1.5",
-    "remove": "^0.1.5"
+    "recompose": "^0.30.0"
   },
   "scripts": {
     "start": "react-scripts start",

@@ -2,13 +2,6 @@ import app from 'firebase/app';
 import 'firebase/auth';
 
 const config = {
-  /* apiKey: 'AIzaSyAKypE8TL247zbiua7Vzt3Jzbf8LIkCios',
-  authDomain: 'auth-boilerplate-e139b.firebaseapp.com',
-  databaseURL: 'https://auth-boilerplate-e139b.firebaseio.com',
-  projectId: 'auth-boilerplate-e139b',
-  storageBucket: 'auth-boilerplate-e139b.appspot.com',
-  messagingSenderId: '546881724114' */
-
   apiKey: process.env.REACT_APP_API_KEY,
   authDomain: process.env.REACT_APP_AUTH_DOMAIN,
   databaseURL: process.env.REACT_APP_DATABASE_URL,

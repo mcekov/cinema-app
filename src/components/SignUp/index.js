@@ -66,7 +66,60 @@ class SignUpFormBase extends Component {
 
     return (
       <form onSubmit={this.onSubmit}>
-        <input
+        <div className="form-group">
+          <label htmlFor="username">Username</label>
+          <input
+            type="text"
+            id="username"
+            name="username"
+            className="form-control"
+            placeholder="Username"
+            onChange={this.onChange}
+            value={username}
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="email">Email</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            className="form-control"
+            placeholder="Email"
+            onChange={this.onChange}
+            value={email}
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="passwordOne">Password</label>
+          <input
+            type="password"
+            className="form-control"
+            id="passwordOne"
+            name="passwordOne"
+            placeholder="Enter Desired Password"
+            value={passwordOne}
+            onChange={this.onChange}
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="passwordTwo">Password</label>
+          <input
+            type="password"
+            className="form-control"
+            id="passwordTwo"
+            name="passwordTwo"
+            placeholder="Confirm Password"
+            value={passwordTwo}
+            onChange={this.onChange}
+          />
+        </div>
+
+        <button className="btn btn-primary" disabled={isInvalid} type="submit">
+          Sign Up
+        </button>
+
+        {/* <input
           type="text"
           name="username"
           placeholder="Username"
@@ -96,7 +149,7 @@ class SignUpFormBase extends Component {
         />
         <button disabled={isInvalid} type="submit">
           Sign Up
-        </button>
+        </button> */}
 
         {error && <p>{error.message}</p>}
       </form>

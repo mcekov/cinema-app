@@ -61,7 +61,41 @@ class SignInFormBase extends Component {
 
     return (
       <form onSubmit={this.onSubmit}>
-        <input
+        <div className="form-group">
+          <label htmlFor="email">Email address</label>
+          <input
+            type="email"
+            id="email"
+            className="form-control"
+            name="email"
+            placeholder="Email Address"
+            value={email}
+            onChange={this.onChange}
+          />
+          <small id="emailHelp" className="form-text text-muted">
+            We'll never share your email with anyone else.
+          </small>
+        </div>
+        <div className="form-group">
+          <label htmlFor="password">Password</label>
+          <input
+            type="password"
+            className="form-control"
+            id="password"
+            name="password"
+            placeholder="Password"
+            value={password}
+            onChange={this.onChange}
+          />
+        </div>
+
+        <button className="btn btn-primary" disabled={isInvalid} type="submit">
+          Sign In
+        </button>
+
+        {error && <p>{error.message}</p>}
+
+        {/* <input
           type="text"
           name="email"
           placeholder="Email Address"
@@ -75,11 +109,11 @@ class SignInFormBase extends Component {
           value={password}
           onChange={this.onChange}
         />
-        <button disabled={isInvalid} type="submit">
+        <button className="btn btn-primary" disabled={isInvalid} type="submit">
           Sign In
         </button>
 
-        {error && <p>{error.message}</p>}
+        {error && <p>{error.message}</p>} */}
       </form>
     );
   }

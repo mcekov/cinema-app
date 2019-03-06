@@ -1,1 +1,1 @@
-# cinema-app
+# Softuni deffence project

@@ -1,7 +1,5 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import React, { Component, Fragment } from 'react';
 import { withFirebase } from '../Firebase';
-import * as ROUTES from '../../constants/routes';
 
 const INITIAL_STATE = {
   passwordOne: '',
@@ -41,35 +39,50 @@ class PasswordChangeForm extends Component {
     const isInvalid = passwordOne !== passwordTwo || passwordOne === '';
 
     return (
-      <form onSubmit={this.onSubmit}>
-        <input
-          type="password"
-          placeholder="New Password"
-          name="passwordOne"
-          value={passwordOne}
-          onChange={this.onChange}
-        />
-        <input
-          type="password"
-          placeholder="Confirm New Password"
-          name="passwordTwo"
-          value={passwordTwo}
-          onChange={this.onChange}
-        />
-        <button disabled={isInvalid} type="submit">
-          Change My Password
-        </button>
-
-        {error && <p>{error.message}</p>}
-      </form>
+      <Fragment>
+        <form onSubmit={this.onSubmit}>
+          <div className="form-group">
+            <label htmlFor="newPassword">Password</label>
+            <input
+              type="password"
+              id="newPassword"
+              className="form-control"
+              name="passwordOne"
+              value={passwordOne}
+              onChange={this.onChange}
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="confirmPassword">Password</label>
+            <input
+              type="password"
+              id="confirmPassword"
+              className="form-control"
+              name="passwordTwo"
+              value={passwordTwo}
+              onChange={this.onChange}
+            />
+          </div>
+          <button
+            className="btn btn-primary"
+            disabled={isInvalid}
+            type="submit"
+          >
+            Change My Password
+          </button>
+        </form>
+        <br />
+        {error && (
+          <div className="alert alert-danger alert-dismissible" role="alert">
+            <button type="button" className="close" data-dismiss="alert">
+              &times;
+            </button>
+            <strong>{error.message}</strong>
+          </div>
+        )}
+      </Fragment>
     );
   }
 }
-
-const PasswordForgetLink = () => (
-  <p>
-    <Link to={ROUTES.PASSWORD_FORGET}>Forgot Password?</Link>
-  </p>
-);
 
 export default withFirebase(PasswordChangeForm);

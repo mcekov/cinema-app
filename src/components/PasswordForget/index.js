@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import { withFirebase } from '../Firebase';
 import * as ROUTES from '../../constants/routes';
@@ -49,24 +49,37 @@ class PasswordForgetFormBase extends Component {
     const isInvalid = email === '';
 
     return (
-      <form onSubmit={this.onSubmit}>
-        <div className="form-group">
-          <label htmlFor="username">Username</label>
-          <input
-            type="text"
-            id="username"
-            className="form-control"
-            name="username"
-            value={this.state.username}
-            onChange={this.onChange}
-          />
-        </div>
-        <button className="btn btn-primary" disabled={isInvalid} type="submit">
-          Reset My Password
-        </button>
-
-        {error && <p>{error.message}</p>}
-      </form>
+      <Fragment>
+        <form onSubmit={this.onSubmit}>
+          <div className="form-group">
+            <label htmlFor="email">Email</label>
+            <input
+              type="email"
+              id="email"
+              className="form-control"
+              name="email"
+              value={this.email}
+              onChange={this.onChange}
+            />
+          </div>
+          <button
+            className="btn btn-primary"
+            disabled={isInvalid}
+            type="submit"
+          >
+            Reset My Password
+          </button>
+        </form>
+        <br />
+        {error && (
+          <div className="alert alert-danger alert-dismissible" role="alert">
+            <button type="button" className="close" data-dismiss="alert">
+              &times;
+            </button>
+            <strong>{error.message}</strong>
+          </div>
+        )}
+      </Fragment>
     );
   }
 }

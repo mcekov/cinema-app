@@ -12,16 +12,21 @@ const withAuthorization = condition => Component => {
     // Authorization logic. Using Firebase listener to trigger a callback func every time the authenticated user changes.
     // Authenticated user is either authUser object or null.
     componentDidMount() {
-      this.listener = this.props.firebase.auth.onAuthStateChanged(authUser => {
-        if (!condition(authUser)) {
-          // Redirecting to sign in page.
-          this.props.history.push(ROUTES > ROUTES.SIGN_IN);
+      this.listener = this.props.firebase.onAuthUserListener(
+        authUser => {
+          if (!condition(authUser)) {
+            // Redirecting to sign in page.
+            this.props.history.push(ROUTES.SIGN_IN);
+          }
+        },
+        () => {
+          this.props.history.push(ROUTES.SIGN_IN);
         }
-      });
+      );
     }
 
     componentWillUnmount() {
-      // Remove (firebase) listener()
+      // Remove (firebase) listener
       this.listener();
     }
 

@@ -5,10 +5,10 @@ import { withFirebase } from '../Firebase';
 import { compose } from 'recompose';
 
 const INITIAL_STATE = {
-  filmName: '',
-  filmYear: '',
-  filmPoster: '',
-  filmDescription: '',
+  title: '',
+  year: '',
+  poster: '',
+  description: '',
   error: null
 };
 
@@ -22,11 +22,14 @@ class AddFilmBase extends Component {
   onSubmit = event => {
     event.preventDefault();
 
-    const { filmName, filmYear, filmPoster, filmDescription } = this.state;
+    const { title, year, poster, description } = this.state;
 
-    this.props.firebase
-      .films()
-      .push({ filmName, filmYear, filmPoster, filmDescription });
+    this.props.firebase.films().push({
+      title,
+      year,
+      poster,
+      description
+    });
   };
 
   onChange = event => {
@@ -34,7 +37,7 @@ class AddFilmBase extends Component {
   };
 
   render() {
-    const { filmName, filmYear, filmPoster, filmDescription } = this.state;
+    const { title, year, poster, description } = this.state;
 
     return (
       <Fragment>
@@ -45,8 +48,8 @@ class AddFilmBase extends Component {
               type="text"
               className="form-control"
               placeholder="Enter Film Name"
-              name="filmName"
-              value={filmName}
+              name="title"
+              value={title}
               onChange={this.onChange}
             />
           </div>
@@ -55,8 +58,8 @@ class AddFilmBase extends Component {
               type="text"
               className="form-control"
               placeholder="Enter Film Year"
-              name="filmYear"
-              value={filmYear}
+              name="year"
+              value={year}
               onChange={this.onChange}
             />
           </div>
@@ -64,24 +67,24 @@ class AddFilmBase extends Component {
             <input
               type="text"
               className="form-control"
-              placeholder="Url to Poster"
-              name="filmPoster"
-              value={filmPoster}
+              placeholder="Poster image"
+              name="poster"
+              value={poster}
               onChange={this.onChange}
             />
           </div>
           <div className="form-group">
             <textarea
-              name="filmDescription"
               className="form-control"
-              placeholder="Enter Film Description"
-              value={filmDescription}
+              placeholder="Enter Description"
+              value={description}
+              name="description"
               onChange={this.onChange}
               rows="4"
               cols="50"
             />
           </div>
-          <button className="btn btn-danger" type="submit">
+          <button className="btn btn-danger btn-block" type="submit">
             Add Film
           </button>
         </form>

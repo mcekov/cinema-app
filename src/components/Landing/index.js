@@ -1,18 +1,23 @@
-import React from 'react';
+import React, { Component, Fragment } from 'react';
+import { withFirebase } from '../Firebase';
+
+import './Landing.css';
 
 const Landing = () => {
   return (
-    <div>
-      <h1>Landing</h1>
+    <Fragment>
+      <h1>All Films</h1>
       <p>
         Lorem ipsum, dolor sit amet consectetur adipisicing elit. Doloribus quos
         voluptatem sunt beatae nulla iure aliquam consequuntur placeat...
       </p>
-    </div>
+
+      <Films />
+    </Fragment>
   );
 };
 
-/* class FilmsBase extends Component {
+class FilmsBase extends Component {
   constructor(props) {
     super(props);
 
@@ -27,15 +32,15 @@ const Landing = () => {
 
     this.props.firebase.films().on('value', snapshot => {
       // convert messages to list from snapshot object
-      const filmsObject = snapshot.val();
+      const filmObject = snapshot.val();
 
-      if (filmsObject) {
-        const filmsList = Object.keys(filmsObject).map(key => ({
-          ...filmsObject[key],
+      if (filmObject) {
+        const filmList = Object.keys(filmObject).map(key => ({
+          ...filmObject[key],
           uid: key
         }));
 
-        this.setState({ films: filmsList, isLoading: false });
+        this.setState({ films: filmList, isLoading: false });
       } else {
         this.setState({
           films: null,
@@ -51,40 +56,64 @@ const Landing = () => {
 
   render() {
     const { films, isLoading } = this.state;
+
     return (
-      <div>
+      <Fragment>
         {isLoading && <div>Loading...</div>}
 
-        {films ? (
-          <FilmList films={films} />
-        ) : (
-          <div>There are no films in db!</div>
-        )}
-      </div>
+        <div className="row flex-column-reverse flex-md-row mt-5">
+          {films ? (
+            <FilmList films={films} />
+          ) : (
+            <div>There are no films in db!</div>
+          )}
+        </div>
+      </Fragment>
     );
   }
 }
 
-const FilmList = ({ films }) => {
-  return (
-    <ul>
-      {films.map(film => (
-        <FilmItem key={film.uid} film={film} />
-      ))}
-    </ul>
-  );
-};
+const FilmList = ({ films }) => (
+  <Fragment>
+    {films.map(film => (
+      <FilmItem key={film.uid} film={film} />
+    ))}
+  </Fragment>
+);
 
 const FilmItem = ({ film }) => {
   return (
-    <li>
-      <strong>{film.userId}</strong>
-      <strong>{film.userId}</strong>
-      {film.name}
-    </li>
+    <div className="col-md-4">
+      <div className="card mb-4 shadow-sm">
+        <img
+          id="poster"
+          className="card-img-top img-fluid"
+          src={film.poster}
+          alt={film.title}
+        />
+
+        <div className="card-body">
+          <h3 className="card-title">{film.title}</h3>
+          <h5>Year: {film.year}</h5>
+          <p className="card-text text-truncate">{film.description}</p>
+        </div>
+
+        <div className="btn-group">
+          <button type="button" className="btn btn-sm btn-outline-primary">
+            View
+          </button>
+          <button type="button" className="btn btn-sm btn-outline-success">
+            Edit
+          </button>
+          <button type="button" className="btn btn-sm btn-outline-danger">
+            Delete
+          </button>
+        </div>
+      </div>
+    </div>
   );
 };
 
-const Films = withFirebase(FilmsBase); */
+const Films = withFirebase(FilmsBase);
 
 export default Landing;

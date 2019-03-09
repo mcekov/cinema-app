@@ -51,7 +51,7 @@ class AdminPage extends Component {
 
     return (
       <Fragment>
-        <div className="row justify-content-center">
+        <div className="row justify-content-center mb-5">
           <div className="col-sm-5">
             <h1>Admin Page</h1>
             <p>The Admin Page is accessible by every signed in ADMIN user.</p>
@@ -62,14 +62,19 @@ class AdminPage extends Component {
         <div className="row">
           <div className="col-sm-4">
             {users ? (
-              <UserList users={users} />
+              <CountRegisteredUsers users={users.length} />
             ) : (
               <div>There are no users in db!</div>
             )}
           </div>
 
-          <div className="col-sm-4">
-            <AddFilmBase />
+          <div className="col-md-6 m-auto">
+            <div className="card">
+              <h5 className="card-header">Add New Film</h5>
+              <div className="card-body">
+                <AddFilmBase />
+              </div>
+            </div>
           </div>
         </div>
       </Fragment>
@@ -77,7 +82,7 @@ class AdminPage extends Component {
   }
 }
 
-const UserList = ({ users }) => (
+/* const UserList = ({ users }) => (
   <ul>
     {users.map(user => (
       <li key={user.uid}>
@@ -95,6 +100,14 @@ const UserList = ({ users }) => (
       </li>
     ))}
   </ul>
+); */
+
+const CountRegisteredUsers = ({ users }) => (
+  <div className="card">
+    <ul className="list-group list-group-flush">
+      <li className="list-group-item">Registered users: {users}</li>
+    </ul>
+  </div>
 );
 
 const condition = authUser => authUser && authUser.roles.includes(ROLES.ADMIN);

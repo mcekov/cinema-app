@@ -79,8 +79,19 @@ class MessagesBase extends Component {
             )}
 
             <form onSubmit={event => this.onCreateMessage(event, authUser)}>
-              <input type="text" value={text} onChange={this.onChangeText} />
-              <button type="submit">Send</button>
+              <textarea
+                value={text}
+                onChange={this.onChangeText}
+                id="input-box"
+                className="form-control mt-2"
+                rows="1"
+                placeholder="Say something..."
+              />
+              <span class="input-group-btn">
+                <button className="btn btn-primary btn-block" type="submit">
+                  Send
+                </button>
+              </span>
             </form>
           </div>
         )}
@@ -90,18 +101,46 @@ class MessagesBase extends Component {
 }
 
 const MessageList = ({ messages }) => (
-  <ul>
+  <div className="card">
     {messages.map(message => (
       <MessageItem key={message.uid} message={message} />
     ))}
-  </ul>
+  </div>
 );
 
 const MessageItem = ({ message }) => (
-  <li>
-    <strong>{message.userId}</strong> {message.text}
-  </li>
+  <div className="card-body">
+    <h6 className="card-subtitle mb-2 text-muted">{message.userId}</h6>
+    <p className="card-text">{message.text}</p>
+  </div>
 );
+
+{
+  /* <div class="msg-group center">
+                	
+                  <div class="card">
+                       <div class="card-body">
+                           <h6 class="card-subtitle mb-2 text-muted text-left">yingshaoxo</h6>
+                           <p class="card-text float-left">Hi ~</p>
+                       </div>
+                  </div>
+                    
+                  <div class="card">
+                       <div class="card-body">
+                           <h6 class="card-subtitle mb-2 text-muted text-right">yingshaoxo</h6>
+                           <p class="card-text float-right">Welcome to here!</p>
+                       </div>
+                  </div>                      
+                 
+              </div>
+              
+              <div class="input-group">
+                <textarea id="input-box" class="form-control" rows="1" placeholder="Say something..."></textarea>
+                  <span class="input-group-btn">
+                      <button class="btn btn-secondary" type="button">send</button>
+                  </span>
+             </div> */
+}
 
 const Messages = withFirebase(MessagesBase);
 

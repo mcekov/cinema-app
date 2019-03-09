@@ -68,9 +68,9 @@ class Firebase {
 
   // *** Films API ***
 
-  /*  film = uid => this.db.ref(`films/${uid}`);
+  film = uid => this.db.ref(`films/${uid}`);
 
-  films = () => this.db.ref('films'); */
+  films = () => this.db.ref('films');
 
   // *** Films API ***
 

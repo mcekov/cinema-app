@@ -11,6 +11,7 @@ const withAuthorization = condition => Component => {
   class WithAuthorization extends React.Component {
     // Authorization logic. Using Firebase listener to trigger a callback func every time the authenticated user changes.
     // Authenticated user is either authUser object or null.
+
     componentDidMount() {
       this.listener = this.props.firebase.onAuthUserListener(
         authUser => {

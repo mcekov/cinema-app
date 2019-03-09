@@ -1,10 +1,11 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 
 import { compose } from 'recompose';
 
 import { withFirebase } from '../Firebase';
 import { withAuthorization } from '../Session';
 import * as ROLES from '../../constants/roles';
+import AddFilmBase from '../AddFilms';
 
 class AdminPage extends Component {
   constructor(props) {
@@ -22,19 +23,22 @@ class AdminPage extends Component {
     this.props.firebase.users().on('value', snapshot => {
       const usersObject = snapshot.val();
 
-      if (!usersObject) {
-        this.setState({ message: 'No Users in Database!' });
+      if (usersObject) {
+        const usersList = Object.keys(usersObject).map(key => ({
+          ...usersObject[key],
+          uid: key
+        }));
+
+        this.setState({
+          users: usersList,
+          loading: false
+        });
+      } else {
+        this.setState({
+          users: null,
+          loading: false
+        });
       }
-
-      const usersList = Object.keys(usersObject).map(key => ({
-        ...usersObject[key],
-        uid: key
-      }));
-
-      this.setState({
-        users: usersList,
-        loading: false
-      });
     });
   }
 
@@ -46,14 +50,29 @@ class AdminPage extends Component {
     const { users, loading } = this.state;
 
     return (
-      <div>
-        <h1>Admin</h1>
+      <Fragment>
+        <div className="row justify-content-center">
+          <div className="col-sm-5">
+            <h1>Admin Page</h1>
+            <p>The Admin Page is accessible by every signed in ADMIN user.</p>
+          </div>
+          {loading && <div>Loading ...</div>}
+        </div>
 
-        <p>The Admin Page is accessible by every signed in admin user.</p>
+        <div className="row">
+          <div className="col-sm-4">
+            {users ? (
+              <UserList users={users} />
+            ) : (
+              <div>There are no users in db!</div>
+            )}
+          </div>
 
-        <UserList users={users} />
-        {loading && <div>Loading ...</div>}
-      </div>
+          <div className="col-sm-4">
+            <AddFilmBase />
+          </div>
+        </div>
+      </Fragment>
     );
   }
 }

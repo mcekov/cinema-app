@@ -19,21 +19,21 @@ const App = () => (
       {/* Navigation comp. uses the new context to consume the authenticated user */}
       <Navigation />
       <div className="container">
-        <div className="row justify-content-center">
-          <div className="col-sm-5 ">
-            <Route exact path={ROUTES.LANDING} component={LandingPage} />
-            <Route exact path={ROUTES.SIGN_UP} component={SignUpPage} />
-            <Route exact path={ROUTES.SIGN_IN} component={SignInPage} />
-            <Route
-              exact
-              path={ROUTES.PASSWORD_FORGET}
-              component={PasswordForgetPage}
-            />
-            <Route exact path={ROUTES.HOME} component={HomePage} />
-            <Route exact path={ROUTES.ACCOUNT} component={AccountPage} />
-            <Route exact path={ROUTES.ADMIN} component={AdminPage} />
-          </div>
-        </div>
+        {/* <div className="row justify-content-center">
+          <div className="col-sm-5 "> */}
+        <Route exact path={ROUTES.LANDING} component={LandingPage} />
+        <Route exact path={ROUTES.SIGN_UP} component={SignUpPage} />
+        <Route exact path={ROUTES.SIGN_IN} component={SignInPage} />
+        <Route
+          exact
+          path={ROUTES.PASSWORD_FORGET}
+          component={PasswordForgetPage}
+        />
+        <Route exact path={ROUTES.HOME} component={HomePage} />
+        <Route exact path={ROUTES.ACCOUNT} component={AccountPage} />
+        <Route exact path={ROUTES.ADMIN} component={AdminPage} />
+        {/* </div>
+        </div> */}
       </div>
     </Fragment>
   </Router>

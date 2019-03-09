@@ -6,7 +6,7 @@ import * as ROUTES from '../../constants/routes';
 const PasswordForget = () => {
   return (
     <div>
-      <h1>PasswordForget</h1>
+      <h1>Reset Password</h1>
       <PasswordForgetForm />
     </div>
   );
@@ -50,42 +50,58 @@ class PasswordForgetFormBase extends Component {
 
     return (
       <Fragment>
-        <form onSubmit={this.onSubmit}>
-          <div className="form-group">
-            <label htmlFor="email">Email</label>
-            <input
-              type="email"
-              id="email"
-              className="form-control"
-              name="email"
-              value={this.email}
-              onChange={this.onChange}
-            />
+        <div className="row mt-5">
+          <div className="col-md-6 m-auto">
+            <div className="card">
+              <h5 className="card-header">Reset my password</h5>
+              <div className="card-body">
+                <form onSubmit={this.onSubmit}>
+                  <div className="form-group">
+                    <label htmlFor="email">Email</label>
+                    <input
+                      type="email"
+                      id="email"
+                      className="form-control"
+                      name="email"
+                      value={this.email}
+                      onChange={this.onChange}
+                    />
+                  </div>
+                  <button
+                    className="btn btn-danger"
+                    disabled={isInvalid}
+                    type="submit"
+                  >
+                    Reset My Password
+                  </button>
+                </form>
+              </div>
+            </div>
           </div>
-          <button
-            className="btn btn-primary"
-            disabled={isInvalid}
-            type="submit"
-          >
-            Reset My Password
-          </button>
-        </form>
+        </div>
         <br />
-        {error && (
-          <div className="alert alert-danger alert-dismissible" role="alert">
-            <button type="button" className="close" data-dismiss="alert">
-              &times;
-            </button>
-            <strong>{error.message}</strong>
+        <div className="row">
+          <div className="col-md-6 m-auto">
+            {error && (
+              <div
+                className="alert alert-danger alert-dismissible"
+                role="alert"
+              >
+                <button type="button" className="close" data-dismiss="alert">
+                  &times;
+                </button>
+                <strong>{error.message}</strong>
+              </div>
+            )}
           </div>
-        )}
+        </div>
       </Fragment>
     );
   }
 }
 
 const PasswordForgetLink = () => (
-  <p>
+  <p className="mt-4 text-center">
     <Link to={ROUTES.PASSWORD_FORGET}>Forgot Password?</Link>
   </p>
 );

@@ -5,13 +5,14 @@ import { Link, withRouter } from 'react-router-dom';
 import { compose } from 'recompose';
 
 import { withFirebase } from '../Firebase';
+import { SignInLink } from '../SignIn';
 import * as ROUTES from '../../constants/routes';
 import * as ROLES from '../../constants/roles';
 
 const SignUp = () => {
   return (
     <div>
-      <h1>SignUp</h1>
+      {/* <h1>SignUp</h1> */}
       <SignUpForm />
     </div>
   );
@@ -91,89 +92,109 @@ class SignUpFormBase extends Component {
 
     return (
       <Fragment>
-        <form onSubmit={this.onSubmit}>
-          <div className="form-group">
-            <label htmlFor="username">Username</label>
-            <input
-              type="text"
-              id="username"
-              name="username"
-              className="form-control"
-              placeholder="Username"
-              onChange={this.onChange}
-              value={username}
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="email">Email</label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              className="form-control"
-              placeholder="Email"
-              onChange={this.onChange}
-              value={email}
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="passwordOne">Password</label>
-            <input
-              type="password"
-              className="form-control"
-              id="passwordOne"
-              name="passwordOne"
-              placeholder="Enter Desired Password"
-              value={passwordOne}
-              onChange={this.onChange}
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="passwordTwo">Password</label>
-            <input
-              type="password"
-              className="form-control"
-              id="passwordTwo"
-              name="passwordTwo"
-              placeholder="Confirm Password"
-              value={passwordTwo}
-              onChange={this.onChange}
-            />
-          </div>
+        <div className="row mt-5">
+          <div className="col-md-6 m-auto">
+            <div className="card ">
+              <h5 className="card-header">Create Account</h5>
+              <div className="card-body">
+                <form onSubmit={this.onSubmit}>
+                  <div className="form-group">
+                    <label htmlFor="username">Username</label>
+                    <input
+                      type="text"
+                      id="username"
+                      name="username"
+                      className="form-control"
+                      placeholder="Enter username"
+                      onChange={this.onChange}
+                      value={username}
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="email">Email</label>
+                    <input
+                      type="email"
+                      id="email"
+                      name="email"
+                      className="form-control"
+                      placeholder="Enter email"
+                      onChange={this.onChange}
+                      value={email}
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="passwordOne">Password</label>
+                    <input
+                      type="password"
+                      className="form-control"
+                      id="passwordOne"
+                      name="passwordOne"
+                      placeholder="Enter Desired Password"
+                      value={passwordOne}
+                      onChange={this.onChange}
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="passwordTwo">Password</label>
+                    <input
+                      type="password"
+                      className="form-control"
+                      id="passwordTwo"
+                      name="passwordTwo"
+                      placeholder="Confirm password"
+                      value={passwordTwo}
+                      onChange={this.onChange}
+                    />
+                  </div>
 
-          <div className="form-group form-check">
-            <div className="custom-control custom-checkbox">
-              <input
-                className="custom-control-input"
-                type="checkbox"
-                id="admin-checkbox"
-                name="isAdmin"
-                checked={isAdmin}
-                onChange={this.onChangeCheckbox}
-              />
-              <label className="custom-control-label" htmlFor="admin-checkbox">
-                Admin
-              </label>
+                  <div className="form-group form-check">
+                    <div className="custom-control custom-checkbox">
+                      <input
+                        className="custom-control-input"
+                        type="checkbox"
+                        id="admin-checkbox"
+                        name="isAdmin"
+                        checked={isAdmin}
+                        onChange={this.onChangeCheckbox}
+                      />
+                      <label
+                        className="custom-control-label"
+                        htmlFor="admin-checkbox"
+                      >
+                        Admin
+                      </label>
+                    </div>
+                  </div>
+
+                  <button
+                    className="btn btn-danger btn-block"
+                    disabled={isInvalid}
+                    type="submit"
+                  >
+                    Sign Up
+                  </button>
+                  <SignInLink />
+                </form>
+              </div>
             </div>
           </div>
+        </div>
 
-          <button
-            className="btn btn-primary"
-            disabled={isInvalid}
-            type="submit"
-          >
-            Sign Up
-          </button>
-        </form>
-        <br />
-        {error && (
-          <div className="alert alert-danger alert-dismissible" role="alert">
-            <button type="button" className="close" data-dismiss="alert">
-              &times;
-            </button>
-            <strong>{error.message}</strong>
+        <div className="row mt-5">
+          <div className="col-md-6 m-auto">
+            {error && (
+              <div
+                className="alert alert-danger alert-dismissible"
+                role="alert"
+              >
+                <button type="button" className="close" data-dismiss="alert">
+                  &times;
+                </button>
+                <strong>{error.message}</strong>
+              </div>
+            )}
           </div>
-        )}
+        </div>
       </Fragment>
     );
   }
@@ -181,7 +202,12 @@ class SignUpFormBase extends Component {
 
 const SignUpLink = () => (
   <p>
-    Dont't have an account? <Link to={ROUTES.SIGN_UP}>Sign Up</Link>
+    <Link
+      className="float-right btn btn-outline-primary mb-2"
+      to={ROUTES.SIGN_UP}
+    >
+      Register account
+    </Link>
   </p>
 );
 

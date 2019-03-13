@@ -1,8 +1,12 @@
 import React, { Component, Fragment } from 'react';
+import { withRouter } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 
 import { withFirebase } from '../Firebase';
 // Organize high-order components
 import { compose } from 'recompose';
+
+import * as ROUTES from '../../constants/routes';
 
 const INITIAL_STATE = {
   title: '',
@@ -30,6 +34,8 @@ class AddFilmBase extends Component {
       poster,
       description
     });
+
+    this.props.history.push(ROUTES.LANDING);
   };
 
   onChange = event => {
@@ -95,4 +101,4 @@ class AddFilmBase extends Component {
 
 const AddFilmForm = compose(withFirebase)(AddFilmBase);
 
-export default AddFilmForm;
+export default withRouter(AddFilmForm);

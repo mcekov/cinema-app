@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import Navigation from '../Navigation';
 import LandingPage from '../Landing';
@@ -10,6 +10,7 @@ import HomePage from '../Home';
 import AccountPage from '../Account';
 import AdminPage from '../Admin';
 import { SingleFilm } from '../Films';
+import { UserItem } from '../Admin';
 
 import * as ROUTES from '../../constants/routes';
 import { withAuthentication } from '../Session';
@@ -22,18 +23,29 @@ const App = () => (
       <div className="container">
         {/* <div className="row justify-content-center">
           <div className="col-sm-5 "> */}
-        <Route exact path={ROUTES.LANDING} component={LandingPage} />
-        <Route exact path={ROUTES.SIGN_UP} component={SignUpPage} />
-        <Route exact path={ROUTES.SIGN_IN} component={SignInPage} />
-        <Route
-          exact
-          path={ROUTES.PASSWORD_FORGET}
-          component={PasswordForgetPage}
-        />
-        <Route exact path={ROUTES.HOME} component={HomePage} />
-        <Route exact path={ROUTES.ACCOUNT} component={AccountPage} />
-        <Route exact path={ROUTES.ADMIN} component={AdminPage} />
-        <Route exact path={`${ROUTES.FILM_VIEW}/:id`} component={SingleFilm} />
+        <Switch>
+          <Route exact path={ROUTES.LANDING} component={LandingPage} />
+          <Route exact path={ROUTES.SIGN_UP} component={SignUpPage} />
+          <Route exact path={ROUTES.SIGN_IN} component={SignInPage} />
+          <Route
+            exact
+            path={ROUTES.PASSWORD_FORGET}
+            component={PasswordForgetPage}
+          />
+          <Route exact path={ROUTES.HOME} component={HomePage} />
+          <Route exact path={ROUTES.ACCOUNT} component={AccountPage} />
+          <Route exact path={ROUTES.ADMIN} component={AdminPage} />
+          <Route
+            exact
+            path={`${ROUTES.FILM_VIEW}/:id`}
+            component={SingleFilm}
+          />
+          <Route
+            exact
+            to={`${ROUTES.ADMIN_DETAILS}/:id`}
+            component={UserItem}
+          />
+        </Switch>
         {/* </div>
         </div> */}
       </div>

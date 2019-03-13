@@ -4,15 +4,37 @@ import { compose } from 'recompose';
 import { AuthUserContext, withAuthorization } from '../Session';
 import { withFirebase } from '../Firebase';
 
-const HomePage = () => {
-  return (
-    <div>
-      <h1>Home</h1>
-      <p>The Home Page is accessible by every logged in user.</p>
-      <Messages />
-    </div>
-  );
-};
+class HomePage extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      users: null
+    };
+  }
+
+  componentDidMount() {
+    this.props.firebase.users().on('value', snapshot => {
+      this.setState({
+        users: snapshot.val()
+      });
+    });
+  }
+
+  componentWillUnmount() {
+    this.props.firebase.users().off();
+  }
+
+  render() {
+    return (
+      <div>
+        <h1>Home</h1>
+        <p>The Home Page is accessible by every logged in user.</p>
+        <Messages users={this.state.users} />
+      </div>
+    );
+  }
+}
 
 class MessagesBase extends Component {
   constructor(props) {
@@ -64,6 +86,7 @@ class MessagesBase extends Component {
   }
 
   render() {
+    const { users } = this.props;
     const { text, messages, loading } = this.state;
 
     return (
@@ -73,25 +96,34 @@ class MessagesBase extends Component {
             {loading && <div>Loading ...</div>}
 
             {messages ? (
-              <MessageList messages={messages} />
+              <MessageList
+                messages={messages.map(message => ({
+                  ...message,
+                  user: users
+                    ? users[message.userId]
+                    : { userId: message.userId }
+                }))}
+              />
             ) : (
               <div>There are no messages ...</div>
             )}
 
             <form onSubmit={event => this.onCreateMessage(event, authUser)}>
-              <textarea
-                value={text}
-                onChange={this.onChangeText}
-                id="input-box"
-                className="form-control mt-2"
-                rows="1"
-                placeholder="Say something..."
-              />
-              <span class="input-group-btn">
-                <button className="btn btn-primary btn-block" type="submit">
-                  Send
-                </button>
-              </span>
+              <div class="input-group">
+                <input
+                  id="input-box"
+                  type="text"
+                  className="form-control mb-4"
+                  placeholder="Say something..."
+                  value={text}
+                  onChange={this.onChangeText}
+                />
+                <span class="input-group-btn">
+                  <button className="btn btn-warning " type="submit">
+                    Send
+                  </button>
+                </span>
+              </div>
             </form>
           </div>
         )}
@@ -110,40 +142,18 @@ const MessageList = ({ messages }) => (
 
 const MessageItem = ({ message }) => (
   <div className="card-body">
-    <h6 className="card-subtitle mb-2 text-muted">{message.userId}</h6>
+    <h6 className="card-subtitle mb-2 text-muted">
+      {message.user.username || message.user.userId}
+    </h6>
     <p className="card-text">{message.text}</p>
   </div>
 );
-
-{
-  /* <div class="msg-group center">
-                	
-                  <div class="card">
-                       <div class="card-body">
-                           <h6 class="card-subtitle mb-2 text-muted text-left">yingshaoxo</h6>
-                           <p class="card-text float-left">Hi ~</p>
-                       </div>
-                  </div>
-                    
-                  <div class="card">
-                       <div class="card-body">
-                           <h6 class="card-subtitle mb-2 text-muted text-right">yingshaoxo</h6>
-                           <p class="card-text float-right">Welcome to here!</p>
-                       </div>
-                  </div>                      
-                 
-              </div>
-              
-              <div class="input-group">
-                <textarea id="input-box" class="form-control" rows="1" placeholder="Say something..."></textarea>
-                  <span class="input-group-btn">
-                      <button class="btn btn-secondary" type="button">send</button>
-                  </span>
-             </div> */
-}
 
 const Messages = withFirebase(MessagesBase);
 
 const condition = authUser => authUser !== null;
 
-export default compose(withAuthorization(condition))(HomePage);
+export default compose(
+  withFirebase,
+  withAuthorization(condition)
+)(HomePage);

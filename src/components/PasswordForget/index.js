@@ -50,50 +50,45 @@ class PasswordForgetFormBase extends Component {
 
     return (
       <Fragment>
-        <div className="row mt-5">
-          <div className="col-md-6 m-auto">
-            <div className="card">
-              <h5 className="card-header">Reset my password</h5>
-              <div className="card-body">
-                <form onSubmit={this.onSubmit}>
-                  <div className="form-group">
-                    <label htmlFor="email">Email</label>
-                    <input
-                      type="email"
-                      id="email"
-                      className="form-control"
-                      name="email"
-                      value={this.email}
-                      onChange={this.onChange}
-                    />
-                  </div>
-                  <button
-                    className="btn btn-danger"
-                    disabled={isInvalid}
-                    type="submit"
-                  >
-                    Reset My Password
-                  </button>
-                </form>
-              </div>
+        <div className="col-md-6">
+          <div className="card">
+            <h5 className="card-header">Reset my password</h5>
+            <div className="card-body">
+              <form onSubmit={this.onSubmit}>
+                <div className="form-group">
+                  <label htmlFor="email">Email</label>
+                  <input
+                    type="email"
+                    id="email"
+                    className="form-control"
+                    name="email"
+                    value={this.email}
+                    onChange={this.onChange}
+                  />
+                </div>
+                <button
+                  className="btn btn-danger"
+                  disabled={isInvalid}
+                  type="submit"
+                >
+                  Reset My Password
+                </button>
+              </form>
             </div>
           </div>
         </div>
+
         <br />
-        <div className="row">
-          <div className="col-md-6 m-auto">
-            {error && (
-              <div
-                className="alert alert-danger alert-dismissible"
-                role="alert"
-              >
-                <button type="button" className="close" data-dismiss="alert">
-                  &times;
-                </button>
-                <strong>{error.message}</strong>
-              </div>
-            )}
-          </div>
+
+        <div className="col-md-6">
+          {error && (
+            <div className="alert alert-danger alert-dismissible" role="alert">
+              <button type="button" className="close" data-dismiss="alert">
+                &times;
+              </button>
+              <strong>{error.message}</strong>
+            </div>
+          )}
         </div>
       </Fragment>
     );

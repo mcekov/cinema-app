@@ -1,6 +1,8 @@
 import React, { Component, Fragment } from 'react';
+import { Link } from 'react-router-dom';
 import { withFirebase } from '../Firebase';
 
+import * as ROUTES from '../../constants/routes';
 import './Landing.css';
 
 const Landing = () => {
@@ -22,13 +24,13 @@ class FilmsBase extends Component {
     super(props);
 
     this.state = {
-      isLoading: false,
+      loading: false,
       films: []
     };
   }
 
   componentDidMount() {
-    this.setState({ isLoading: true });
+    this.setState({ loading: true });
 
     this.props.firebase.films().on('value', snapshot => {
       // convert messages to list from snapshot object
@@ -40,11 +42,11 @@ class FilmsBase extends Component {
           uid: key
         }));
 
-        this.setState({ films: filmList, isLoading: false });
+        this.setState({ films: filmList, loading: false });
       } else {
         this.setState({
           films: null,
-          isLoading: false
+          loading: false
         });
       }
     });
@@ -55,11 +57,11 @@ class FilmsBase extends Component {
   }
 
   render() {
-    const { films, isLoading } = this.state;
+    const { films, loading } = this.state;
 
     return (
       <Fragment>
-        {isLoading && <div>Loading...</div>}
+        {loading && <div>Loading...</div>}
 
         <div className="row flex-column-reverse flex-md-row mt-5">
           {films ? (
@@ -98,17 +100,19 @@ const FilmItem = ({ film }) => {
           <p className="card-text text-truncate">{film.description}</p>
         </div>
 
-        <div className="btn-group">
-          <button type="button" className="btn btn-sm btn-outline-primary">
-            View
-          </button>
-          <button type="button" className="btn btn-sm btn-outline-success">
+        <Link
+          to={`${ROUTES.FILM_VIEW}/${film.uid}`}
+          className="btn btn-sm btn-outline-primary"
+        >
+          View Film
+        </Link>
+
+        {/* <button type="button" className="btn btn-sm btn-outline-success">
             Edit
           </button>
           <button type="button" className="btn btn-sm btn-outline-danger">
             Delete
-          </button>
-        </div>
+          </button> */}
       </div>
     </div>
   );

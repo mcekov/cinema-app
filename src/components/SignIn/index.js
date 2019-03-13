@@ -108,8 +108,7 @@ class SignInFormBase extends Component {
           </div>
         </div>
 
-        <br />
-        <div className="row mt-5">
+        <div className="row mt-2">
           <div className="col-md-6 m-auto">
             {error && (
               <div

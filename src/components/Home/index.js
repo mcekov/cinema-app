@@ -4,6 +4,8 @@ import { compose } from 'recompose';
 import { AuthUserContext, withAuthorization } from '../Session';
 import { withFirebase } from '../Firebase';
 
+import './index.css';
+
 class HomePage extends Component {
   constructor(props) {
     super(props);
@@ -109,7 +111,7 @@ class MessagesBase extends Component {
             )}
 
             <form onSubmit={event => this.onCreateMessage(event, authUser)}>
-              <div class="input-group">
+              <div className="input-group">
                 <input
                   id="input-box"
                   type="text"
@@ -118,7 +120,7 @@ class MessagesBase extends Component {
                   value={text}
                   onChange={this.onChangeText}
                 />
-                <span class="input-group-btn">
+                <span className="input-group-btn">
                   <button className="btn btn-warning " type="submit">
                     Send
                   </button>
@@ -133,7 +135,7 @@ class MessagesBase extends Component {
 }
 
 const MessageList = ({ messages }) => (
-  <div className="card">
+  <div className="card chat-container">
     {messages.map(message => (
       <MessageItem key={message.uid} message={message} />
     ))}
@@ -145,6 +147,7 @@ const MessageItem = ({ message }) => (
     <h6 className="card-subtitle mb-2 text-muted">
       {message.user.username || message.user.userId}
     </h6>
+
     <p className="card-text">{message.text}</p>
   </div>
 );

@@ -9,6 +9,7 @@ import PasswordForgetPage from '../PasswordForget';
 import HomePage from '../Home';
 import AccountPage from '../Account';
 import AdminPage from '../Admin';
+import AboutPage from '../About';
 import { SingleFilm } from '../Films';
 import { UserItem } from '../Admin';
 
@@ -21,12 +22,12 @@ const App = () => (
       {/* Navigation comp. uses the new context to consume the authenticated user */}
       <Navigation />
       <div className="container">
-        {/* <div className="row justify-content-center">
-          <div className="col-sm-5 "> */}
         <Switch>
           <Route exact path={ROUTES.LANDING} component={LandingPage} />
+
           <Route exact path={ROUTES.SIGN_UP} component={SignUpPage} />
           <Route exact path={ROUTES.SIGN_IN} component={SignInPage} />
+
           <Route
             exact
             path={ROUTES.PASSWORD_FORGET}
@@ -40,14 +41,13 @@ const App = () => (
             path={`${ROUTES.FILM_VIEW}/:id`}
             component={SingleFilm}
           />
+          <Route exact to={ROUTES.ABOUT} component={AboutPage} />
           <Route
             exact
             to={`${ROUTES.ADMIN_DETAILS}/:id`}
             component={UserItem}
           />
         </Switch>
-        {/* </div>
-        </div> */}
       </div>
     </Fragment>
   </Router>

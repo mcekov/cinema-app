@@ -7,7 +7,7 @@ import { withAuthorization } from '../Session';
 import * as ROLES from '../../constants/roles';
 import * as ROUTES from '../../constants/routes';
 
-import AddFilmBase from '../Films';
+import AddFilmForm from '../Films';
 
 class AdminPage extends Component {
   constructor(props) {
@@ -77,7 +77,7 @@ class AdminPage extends Component {
             <div className="card">
               <h5 className="card-header">Add New Film</h5>
               <div className="card-body">
-                <AddFilmBase />
+                <AddFilmForm />
               </div>
             </div>
           </div>
@@ -100,23 +100,26 @@ class UserListBase extends Component {
   componentDidMount() {
     this.setState({ loading: true });
 
-    this.props.firebase.users().on('value', snapshot => {
-      const usersObject = snapshot.val();
+    this.props.firebase
+      .users()
+      .limitToLast(3)
+      .on('value', snapshot => {
+        const usersObject = snapshot.val();
 
-      if (usersObject) {
-        const userList = Object.keys(usersObject).map(key => ({
-          ...usersObject[key],
-          uid: key
-        }));
+        if (usersObject) {
+          const userList = Object.keys(usersObject).map(key => ({
+            ...usersObject[key],
+            uid: key
+          }));
 
-        this.setState({ users: userList, loading: false });
-      } else {
-        this.setState({
-          loading: false,
-          users: null
-        });
-      }
-    });
+          this.setState({ users: userList, loading: false });
+        } else {
+          this.setState({
+            loading: false,
+            users: null
+          });
+        }
+      });
   }
   componentWillUnmount() {
     this.props.firebase.users().off();
@@ -128,7 +131,7 @@ class UserListBase extends Component {
     return (
       <div>
         {loading && <div>Loading ...</div>}
-
+        <h4 className="mt-3">Last 3 registered users:</h4>
         <ul className="list-group mt-3">
           {users.map(user => (
             <li className="list-group-item" key={user.uid}>
@@ -168,6 +171,8 @@ class UserItemBase extends Component {
 
     this.state = {
       loading: false,
+      error: null,
+      success: null,
       user: null,
       ...props.location.state
     };
@@ -192,49 +197,92 @@ class UserItemBase extends Component {
   }
 
   onSendPasswordResetEmail = () => {
-    this.props.firebase.doPasswordReset(this.state.user.email);
+    this.props.firebase
+      .doPasswordReset(this.state.user.email)
+      .then(() => {
+        this.setState({
+          success: `Password reset email sended to ${this.state.user.email}`
+        });
+      })
+      .catch(error => {
+        this.setState({ error });
+      });
   };
 
   render() {
-    const { user, loading } = this.state;
-
-    console.log(user);
+    const { user, loading, error, success } = this.state;
 
     return (
       <Fragment>
-        <h2>User:</h2>
         {loading && <div>Loading...</div>}
 
         {user && (
-          <div className="card">
-            <div className="card-body">
-              <span>
-                <strong>ID: </strong>
-                {user.uid}
-                <br />
-                <strong>Email: </strong>
-                {user.email}
-                <br />
-                <strong>Username: </strong>
-                {user.username}
-              </span>
-              <br />
-              <span>
-                <button
-                  className="btn btn-sm btn-success mt-3"
-                  type="button"
-                  onClick={this.onSendPasswordResetEmail}
-                >
-                  Send Password Reset
-                </button>
-                <br />
-                <Link to={ROUTES.ADMIN} className="btn btn-sm btn-primary mt-3">
-                  Back
-                </Link>
-              </span>
+          <div className="row mt-2">
+            <div className="col-md-6">
+              <div className="card">
+                <div className="card-body">
+                  <span>
+                    <strong>ID: </strong>
+                    {user.uid}
+                    <br />
+                    <strong>Email: </strong>
+                    {user.email}
+                    <br />
+                    <strong>Username: </strong>
+                    {user.username}
+                  </span>
+                  <br />
+                  <span>
+                    <button
+                      className="btn btn-sm btn-danger mt-3"
+                      type="button"
+                      onClick={this.onSendPasswordResetEmail}
+                    >
+                      Send Password Reset
+                    </button>
+                    <br />
+                    <Link
+                      to={ROUTES.ADMIN}
+                      className="btn btn-sm btn-primary mt-3"
+                    >
+                      Back
+                    </Link>
+                  </span>
+                </div>
+              </div>
             </div>
           </div>
         )}
+
+        <div className="row mt-2">
+          <div className="col-md-6">
+            {success && (
+              <div
+                className="alert alert-danger alert-dismissible"
+                role="alert"
+              >
+                <button type="button" className="close" data-dismiss="alert">
+                  &times;
+                </button>
+                <strong>{success}</strong>
+              </div>
+            )}
+          </div>
+
+          <div className="col-md-6 m-auto">
+            {error && (
+              <div
+                className="alert alert-danger alert-dismissible"
+                role="alert"
+              >
+                <button type="button" className="close" data-dismiss="alert">
+                  &times;
+                </button>
+                <strong>{error.message}</strong>
+              </div>
+            )}
+          </div>
+        </div>
       </Fragment>
     );
   }
@@ -242,9 +290,9 @@ class UserItemBase extends Component {
 
 const CountRegisteredUsers = ({ users }) => (
   <div className="card">
-    <ul className="list-group list-group-flush">
-      <li className="list-group-item">Registered users: {users}</li>
-    </ul>
+    <div className="list-group-item list-group-item-success">
+      Registered users: {users}
+    </div>
   </div>
 );
 

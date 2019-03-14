@@ -10,7 +10,7 @@ const Navigation = () => (
   <nav className="navbar navbar-expand-lg navbar-dark bg-primary mb-5">
     <div className="container">
       <Link className="navbar-brand" to={ROUTES.LANDING}>
-        Cine Utopia
+        Film Club
       </Link>
 
       <button
@@ -64,6 +64,11 @@ const NavigationAuth = ({ authUser }) => (
       </li>
     )}
     <li className="nav-item">
+      <Link className="nav-link" to={ROUTES.ABOUT}>
+        About Us
+      </Link>
+    </li>
+    <li className="nav-item">
       <SignOut />
     </li>
   </ul>
@@ -79,6 +84,11 @@ const NavigationNonAuth = () => (
     <li className="nav-item">
       <Link className="nav-link" to={ROUTES.SIGN_IN}>
         Sign In
+      </Link>
+    </li>
+    <li className="nav-item">
+      <Link className="nav-link" to={ROUTES.ABOUT}>
+        About Us
       </Link>
     </li>
   </ul>

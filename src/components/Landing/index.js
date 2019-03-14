@@ -8,11 +8,24 @@ import './Landing.css';
 const Landing = () => {
   return (
     <Fragment>
-      <h1>All Films</h1>
-      <p>
-        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Doloribus quos
-        voluptatem sunt beatae nulla iure aliquam consequuntur placeat...
-      </p>
+      <div className="jumbotron">
+        <h1 className="display-3">Welcome to our site</h1>
+        <p className="lead">This is a web site of our kino club.</p>
+        <hr className="my-4" />
+        <p>Here you can see refined list of films for film buffs.</p>
+        <p>
+          Film Club is not just another movie list website, our focus on World
+          Cinema and Classics make us different. We make essential film lists
+          introducing the best films from different filmmakers, countries,
+          genres and eras, these in-depth lists not only serve as guides to good
+          movies...
+        </p>
+        <p className="lead">
+          <Link className="btn btn-primary btn-lg" to={ROUTES.ABOUT}>
+            Learn more
+          </Link>
+        </p>
+      </div>
 
       <Films />
     </Fragment>

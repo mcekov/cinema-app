@@ -1,6 +1,8 @@
 import React, { Component, Fragment } from 'react';
+import { Link } from 'react-router-dom';
 import { withFirebase } from '../Firebase';
 
+import * as ROUTES from '../../constants/routes';
 import './singleFilm.css';
 
 class SingleFilmPage extends Component {
@@ -85,6 +87,9 @@ const FilmItem = ({ film }) => {
             <h2>{film.title}</h2>
             <p>Year: {film.year}</p>
             <h5>{film.description}</h5>
+            <Link className="btn btn-sm btn-primary" to={ROUTES.LANDING}>
+              Back
+            </Link>
           </div>
         </div>
       </div>

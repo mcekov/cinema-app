@@ -1,5 +1,7 @@
 # Softuni defence project
 
+# Website for a Film Club
+
 ## Available Scripts
 
 In the project directory, you can run:

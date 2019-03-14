@@ -1,18 +1,18 @@
 import React, { Component, Fragment } from 'react';
 import { withRouter } from 'react-router-dom';
-import { Redirect } from 'react-router-dom';
 
 import { withFirebase } from '../Firebase';
 // Organize high-order components
 import { compose } from 'recompose';
 
-import * as ROUTES from '../../constants/routes';
+// import * as ROUTES from '../../constants/routes';
 
 const INITIAL_STATE = {
   title: '',
   year: '',
   poster: '',
   description: '',
+  success: null,
   error: null
 };
 
@@ -25,17 +25,24 @@ class AddFilmBase extends Component {
 
   onSubmit = event => {
     event.preventDefault();
-
     const { title, year, poster, description } = this.state;
 
-    this.props.firebase.films().push({
-      title,
-      year,
-      poster,
-      description
-    });
+    this.props.firebase
+      .films()
+      .push({
+        title,
+        year,
+        poster,
+        description
+      })
+      .then(() => {
+        this.setState({ success: 'Film succesfuly added' });
+      })
+      .catch(error => {
+        this.setState({ error });
+      });
 
-    this.props.history.push(ROUTES.LANDING);
+    //this.props.history.push(ROUTES.LANDING);
   };
 
   onChange = event => {
@@ -43,11 +50,31 @@ class AddFilmBase extends Component {
   };
 
   render() {
-    const { title, year, poster, description } = this.state;
+    const { title, year, poster, description, success, error } = this.state;
+
+    const isInvalid =
+      title === '' || year === '' || poster === '' || description === '';
 
     return (
       <Fragment>
-        <p>Form for adding Film</p>
+        {success && (
+          <div className="alert alert-success alert-dismissible" role="alert">
+            <button type="button" className="close" data-dismiss="alert">
+              &times;
+            </button>
+            <strong>{success}</strong>
+          </div>
+        )}
+
+        {error && (
+          <div className="alert alert-success alert-dismissible" role="alert">
+            <button type="button" className="close" data-dismiss="alert">
+              &times;
+            </button>
+            <strong>{error}</strong>
+          </div>
+        )}
+
         <form onSubmit={this.onSubmit}>
           <div className="form-group">
             <input
@@ -90,7 +117,11 @@ class AddFilmBase extends Component {
               cols="50"
             />
           </div>
-          <button className="btn btn-danger btn-block" type="submit">
+          <button
+            disabled={isInvalid}
+            className="btn btn-danger btn-block"
+            type="submit"
+          >
             Add Film
           </button>
         </form>

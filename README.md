@@ -1,10 +1,14 @@
-# Softuni defence project
+# Film Club Web App
 
-# Website for a Film Club
+App for managing film lists and reviews.
 
-## Available Scripts
+## Getting Started
 
 In the project directory, you can run:
+
+### `npm install`
+
+This will install project dependencies
 
 ### `npm start`
 
@@ -27,6 +31,6 @@ It correctly bundles React in production mode and optimizes the build for the be
 The build is minified and the filenames include the hashes.<br>
 Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Prerequisites
 
-### `npm run eject`
+nodejs server: https://nodejs.org

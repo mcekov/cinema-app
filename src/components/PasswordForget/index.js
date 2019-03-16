@@ -73,6 +73,9 @@ class PasswordForgetFormBase extends Component {
                   >
                     Reset My Password
                   </button>
+                  <Link to={ROUTES.SIGN_IN} className="btn btn-primary ml-2">
+                    Cancel
+                  </Link>
                 </form>
               </div>
             </div>

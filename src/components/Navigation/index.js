@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 
 import { AuthUserContext } from '../Session';
 import SignOut from '../SignOut';
@@ -42,31 +42,31 @@ const Navigation = () => (
 const NavigationAuth = ({ authUser }) => (
   <ul className="navbar-nav ml-auto">
     <li className="nav-item">
-      <Link className="nav-link" to={ROUTES.LANDING}>
+      <NavLink exact className="nav-link" to={ROUTES.LANDING}>
         Landing
-      </Link>
+      </NavLink>
     </li>
     <li className="nav-item">
-      <Link className="nav-link" to={ROUTES.HOME}>
+      <NavLink className="nav-link" to={ROUTES.HOME}>
         Home
-      </Link>
+      </NavLink>
     </li>
     <li className="nav-item">
-      <Link className="nav-link" to={ROUTES.ACCOUNT}>
+      <NavLink className="nav-link" to={ROUTES.ACCOUNT}>
         Account
-      </Link>
+      </NavLink>
     </li>
     {authUser.roles.includes(ROLES.ADMIN) && (
       <li className="nav-item">
-        <Link className="nav-link" to={ROUTES.ADMIN}>
+        <NavLink className="nav-link" to={ROUTES.ADMIN}>
           Admin
-        </Link>
+        </NavLink>
       </li>
     )}
     <li className="nav-item">
-      <Link className="nav-link" to={ROUTES.ABOUT}>
+      <NavLink className="nav-link" to={ROUTES.ABOUT}>
         About Us
-      </Link>
+      </NavLink>
     </li>
     <li className="nav-item">
       <SignOut />
@@ -77,19 +77,19 @@ const NavigationAuth = ({ authUser }) => (
 const NavigationNonAuth = () => (
   <ul className="navbar-nav ml-auto">
     <li className="nav-item">
-      <Link className="nav-link" to={ROUTES.LANDING}>
+      <NavLink exact className="nav-link" to={ROUTES.LANDING}>
         Landing
-      </Link>
+      </NavLink>
     </li>
     <li className="nav-item">
-      <Link className="nav-link" to={ROUTES.SIGN_IN}>
+      <NavLink className="nav-link" to={ROUTES.SIGN_IN}>
         Sign In
-      </Link>
+      </NavLink>
     </li>
     <li className="nav-item">
-      <Link className="nav-link" to={ROUTES.ABOUT}>
+      <NavLink className="nav-link" to={ROUTES.ABOUT}>
         About Us
-      </Link>
+      </NavLink>
     </li>
   </ul>
 );

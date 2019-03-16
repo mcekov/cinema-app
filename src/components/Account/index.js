@@ -9,12 +9,8 @@ const AccountPage = () => {
       {authUser => (
         <Fragment>
           <h1>Account: {authUser.email}</h1>
-          <div className="row mt-5">
-            <div className="col-md-6">
-              <PasswordForgetForm />
-              <PasswordChangeForm />
-            </div>
-          </div>
+          <PasswordForgetForm />
+          <PasswordChangeForm />
         </Fragment>
       )}
     </AuthUserContext.Consumer>

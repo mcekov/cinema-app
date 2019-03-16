@@ -5,7 +5,7 @@ import { withFirebase } from '../Firebase';
 // Organize high-order components
 import { compose } from 'recompose';
 
-// import * as ROUTES from '../../constants/routes';
+/* import * as ROUTES from '../../constants/routes'; */
 
 const INITIAL_STATE = {
   title: '',
@@ -36,13 +36,19 @@ class AddFilmBase extends Component {
         description
       })
       .then(() => {
-        this.setState({ success: 'Film succesfuly added' });
+        this.setState({
+          success: 'Film succesfuly added',
+          title: '',
+          year: '',
+          poster: '',
+          description: ''
+        });
       })
       .catch(error => {
         this.setState({ error });
       });
 
-    //this.props.history.push(ROUTES.LANDING);
+    // this.props.history.push(ROUTES.LANDING);
   };
 
   onChange = event => {

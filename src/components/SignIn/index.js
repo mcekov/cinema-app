@@ -12,7 +12,6 @@ import * as ROUTES from '../../constants/routes';
 const SignIn = () => {
   return (
     <div>
-      <h1>SignIn</h1>
       <SignInForm />
     </div>
   );

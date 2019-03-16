@@ -6,7 +6,6 @@ import * as ROUTES from '../../constants/routes';
 const PasswordForget = () => {
   return (
     <div>
-      <h1>Reset Password</h1>
       <PasswordForgetForm />
     </div>
   );
@@ -50,34 +49,35 @@ class PasswordForgetFormBase extends Component {
 
     return (
       <Fragment>
-        <div className="col-md-6">
-          <div className="card">
-            <h5 className="card-header">Reset my password</h5>
-            <div className="card-body">
-              <form onSubmit={this.onSubmit}>
-                <div className="form-group">
-                  <label htmlFor="email">Email</label>
-                  <input
-                    type="email"
-                    id="email"
-                    className="form-control"
-                    name="email"
-                    value={this.email}
-                    onChange={this.onChange}
-                  />
-                </div>
-                <button
-                  className="btn btn-danger"
-                  disabled={isInvalid}
-                  type="submit"
-                >
-                  Reset My Password
-                </button>
-              </form>
+        <div className="row mt-5">
+          <div className="col-md-6 m-auto">
+            <div className="card">
+              <h5 className="card-header">Reset my password</h5>
+              <div className="card-body">
+                <form onSubmit={this.onSubmit}>
+                  <div className="form-group">
+                    <label htmlFor="email">Email</label>
+                    <input
+                      type="email"
+                      id="email"
+                      className="form-control"
+                      name="email"
+                      value={this.email}
+                      onChange={this.onChange}
+                    />
+                  </div>
+                  <button
+                    className="btn btn-danger"
+                    disabled={isInvalid}
+                    type="submit"
+                  >
+                    Reset My Password
+                  </button>
+                </form>
+              </div>
             </div>
           </div>
         </div>
-
         <br />
 
         <div className="col-md-6">

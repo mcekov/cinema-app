@@ -33,4 +33,4 @@ Your app is ready to be deployed!
 
 ### Prerequisites
 
-nodejs server: https://nodejs.org
+nodejs: https://nodejs.org

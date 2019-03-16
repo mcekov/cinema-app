@@ -10,7 +10,7 @@ import HomePage from '../Home';
 import AccountPage from '../Account';
 import AdminPage from '../Admin';
 import AboutPage from '../About';
-import { SingleFilm } from '../Films';
+import { SingleFilmPage } from '../Films';
 import { UserItem } from '../Admin';
 
 import * as ROUTES from '../../constants/routes';
@@ -27,7 +27,7 @@ const App = () => (
 
           <Route exact path={ROUTES.SIGN_UP} component={SignUpPage} />
           <Route exact path={ROUTES.SIGN_IN} component={SignInPage} />
-
+          <Route exact path={ROUTES.ABOUT} component={AboutPage} />
           <Route
             exact
             path={ROUTES.PASSWORD_FORGET}
@@ -39,9 +39,8 @@ const App = () => (
           <Route
             exact
             path={`${ROUTES.FILM_VIEW}/:id`}
-            component={SingleFilm}
+            component={SingleFilmPage}
           />
-          <Route exact to={ROUTES.ABOUT} component={AboutPage} />
           <Route
             exact
             to={`${ROUTES.ADMIN_DETAILS}/:id`}

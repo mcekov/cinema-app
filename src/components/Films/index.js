@@ -1,5 +1,5 @@
 import AddFilmForm from './addFilm';
-import SingleFilm from './singleFilm';
+import SingleFilmPage from './singleFilm';
 
 export default AddFilmForm;
-export { SingleFilm };
+export { SingleFilmPage };

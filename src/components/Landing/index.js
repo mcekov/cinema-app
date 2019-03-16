@@ -119,13 +119,6 @@ const FilmItem = ({ film }) => {
         >
           View Film
         </Link>
-
-        {/* <button type="button" className="btn btn-sm btn-outline-success">
-            Edit
-          </button>
-          <button type="button" className="btn btn-sm btn-outline-danger">
-            Delete
-          </button> */}
       </div>
     </div>
   );

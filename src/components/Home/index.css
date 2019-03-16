@@ -1,6 +1,5 @@
 .chat-container {
-  display: block;
+  /* display: block; */
   overflow: auto;
   height: 60vh;
-  /*   direction: rtl; */
 }

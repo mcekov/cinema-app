@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 
 import { AuthUserContext } from '../Session';
@@ -40,38 +40,47 @@ const Navigation = () => (
 );
 
 const NavigationAuth = ({ authUser }) => (
-  <ul className="navbar-nav ml-auto">
-    <li className="nav-item">
-      <NavLink exact className="nav-link" to={ROUTES.LANDING}>
-        Landing
-      </NavLink>
-    </li>
-    <li className="nav-item">
-      <NavLink className="nav-link" to={ROUTES.HOME}>
-        Home
-      </NavLink>
-    </li>
-    <li className="nav-item">
-      <NavLink className="nav-link" to={ROUTES.ACCOUNT}>
-        Account
-      </NavLink>
-    </li>
-    {authUser.roles.includes(ROLES.ADMIN) && (
+  <Fragment>
+    <ul className="navbar-nav mx-auto">
       <li className="nav-item">
         <NavLink className="nav-link" to={ROUTES.ADMIN}>
-          Admin
+          Hello {authUser.username}
         </NavLink>
       </li>
-    )}
-    <li className="nav-item">
-      <NavLink className="nav-link" to={ROUTES.ABOUT}>
-        About Us
-      </NavLink>
-    </li>
-    <li className="nav-item">
-      <SignOut />
-    </li>
-  </ul>
+    </ul>
+    <ul className="navbar-nav ml-auto">
+      <li className="nav-item">
+        <NavLink exact className="nav-link" to={ROUTES.LANDING}>
+          Landing
+        </NavLink>
+      </li>
+      <li className="nav-item">
+        <NavLink className="nav-link" to={ROUTES.HOME}>
+          Home
+        </NavLink>
+      </li>
+      <li className="nav-item">
+        <NavLink className="nav-link" to={ROUTES.ACCOUNT}>
+          Account
+        </NavLink>
+      </li>
+      {authUser.roles.includes(ROLES.ADMIN) && (
+        <li className="nav-item">
+          <NavLink className="nav-link" to={ROUTES.ADMIN}>
+            Admin
+          </NavLink>
+        </li>
+      )}
+      <li className="nav-item">
+        <NavLink className="nav-link" to={ROUTES.ABOUT}>
+          About Us
+        </NavLink>
+      </li>
+      <li className="nav-item">
+        <SignOut />
+      </li>
+    </ul>
+  </Fragment>
 );
 
 const NavigationNonAuth = () => (
